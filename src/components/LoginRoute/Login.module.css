@@ -17,7 +17,9 @@
   align-items: center;
   margin-right: 16px;
 }
-
+.Logo {
+  display: none;
+}
 .Rectangle {
   height: 285px;
   width: 285px;
@@ -172,5 +174,8 @@
     color: #f7931e;
 
     text-align: left;
+  }
+  .Logo {
+    display: block;
   }
 }

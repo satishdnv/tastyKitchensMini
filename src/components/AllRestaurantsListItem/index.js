@@ -8,7 +8,11 @@ const ListItem = props => {
   const {rating, totalReviews} = userRating
 
   return (
-    <Link to={`/restaurant/${id}`} style={{textDecoration: 'none'}} key={id}>
+    <Link
+      to={`/restaurant/${id}`}
+      style={{textDecoration: 'none'}}
+      testid="restaurant-item"
+    >
       <li className={classes.ListItem}>
         <img
           src={imageUrl}

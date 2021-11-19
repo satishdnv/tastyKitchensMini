@@ -4,13 +4,13 @@ import {Redirect} from 'react-router-dom'
 
 import classes from './Login.module.css'
 
-const imageUrl =
+const smallImageUrl =
   'https://res.cloudinary.com/ddgvegjgk/image/upload/v1635311318/tastykitchens/Rectangle_1457_ri10vf.png'
 
-const imageURl2 =
+const largeImageURl =
   'https://res.cloudinary.com/ddgvegjgk/image/upload/v1635315803/tastykitchens/Rectangle_1457_noyo6j.png'
 const logoUrl =
-  'https://res.cloudinary.com/ddgvegjgk/image/upload/v1636349985/tastykitchens/Vector_gkmlc0.jpg'
+  'https://res.cloudinary.com/dppqkea7f/image/upload/v1625742512/Frame_274_zlrzwk.svg'
 
 class LoginRoute extends Component {
   state = {
@@ -69,23 +69,25 @@ class LoginRoute extends Component {
       return <Redirect to="/" />
     }
 
-    const {
-      username,
-      password,
-      isShowPassword,
-      showErrorMsg,
-      errorMsg,
-    } = this.state
+    const {username, password, showErrorMsg, errorMsg} = this.state
 
-    const inputType = isShowPassword ? 'text' : 'password'
+    // const inputType = isShowPassword ? 'text' : 'password'
 
     return (
       <div className={classes.BgContainer}>
-        <img src={imageURl2} alt="loginImage" className={classes.LargeImage} />
+        <img
+          src="https://res.cloudinary.com/ddgvegjgk/image/upload/v1635315803/tastykitchens/Rectangle_1457_noyo6j.png"
+          alt="website login"
+          className={classes.LargeImage}
+        />
         <div className={classes.LoginContainer}>
-          <img src={logoUrl} alt="logo" />
+          <img src={logoUrl} className={classes.Logo} alt="website logo" />
           <h1 className={classes.LargeHeading}>Tasty Kitchens</h1>
-          <img className={classes.Rectangle} src={imageUrl} alt="rectangle" />
+          <img
+            className={classes.Rectangle}
+            src="https://res.cloudinary.com/ddgvegjgk/image/upload/v1635311318/tastykitchens/Rectangle_1457_ri10vf.png"
+            alt="website login"
+          />
 
           <h1 className={classes.LoginHeading}>Login</h1>
           <form className={classes.FormContainer} onSubmit={this.onSubmitForm}>
@@ -98,31 +100,20 @@ class LoginRoute extends Component {
               className={classes.InputElement}
               onChange={this.onChangeUsername}
               value={username}
+              placeholder="USER NAME"
             />
             <label htmlFor="password" className={classes.LabelElement}>
               PASSWORD
             </label>
             <input
-              type={inputType}
+              type="password"
               id="password"
               className={classes.InputElement}
               onChange={this.onChangePassword}
               value={password}
+              placeholder="PASSWORD"
             />
-            <div className={classes.ShowPasswordBox}>
-              <input
-                type="checkbox"
-                id="showPassword"
-                className={classes.CheckboxElement}
-                onChange={this.showAndHidePassword}
-              />
-              <label
-                htmlFor="showPassword"
-                className={classes.ShowPasswordLabel}
-              >
-                Show Password
-              </label>
-            </div>
+
             {showErrorMsg ? (
               <p className={classes.ErrorMsg}>*{errorMsg}</p>
             ) : null}

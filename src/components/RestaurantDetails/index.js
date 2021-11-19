@@ -92,7 +92,7 @@ class RestaurantDetailsRoute extends Component {
   // restaurant loader
 
   restaurantsDisplayLoading = () => (
-    <div className={restaurantClass.Loader} testid="restaurants-list-loader">
+    <div className={restaurantClass.Loader} testid="restaurant-details-loader">
       <Loader type="ThreeDots" color="#0b69ff" height="50" width="50" />
     </div>
   )
@@ -121,7 +121,7 @@ class RestaurantDetailsRoute extends Component {
         <div className={restaurantClass.RestaurantContainer} key={restaurantId}>
           <img
             src={imageUrl}
-            alt="restaurant-display"
+            alt="restaurant"
             className={restaurantClass.img}
           />
           <div className={restaurantClass.DetailsContainer}>

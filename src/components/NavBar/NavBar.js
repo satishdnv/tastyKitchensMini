@@ -11,7 +11,7 @@ const NavBar = () => (
   <div className={classes.NavBar}>
     <Link to="/" style={{textDecoration: 'none'}}>
       <div className={classes.LogoContainer}>
-        <img src={logoUrl} alt="logo" className={classes.LogoImage} />
+        <img src={logoUrl} alt="website logo" className={classes.LogoImage} />
         <h1 className={classes.MainHeading}>Tasty Kitchens</h1>
       </div>
     </Link>

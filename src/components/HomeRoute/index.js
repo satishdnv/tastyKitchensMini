@@ -258,9 +258,7 @@ class HomeRoute extends Component {
 
           <div className={classes.FilterContainer}>
             <BsFilterLeft className={classes.FilterLogo} />
-            <label className={classes.SortLabel} htmlFor="sortBy">
-              Sort By Rating
-            </label>
+            <p className={classes.SortLabel}>Sort By</p>
             <select
               id="sortBy"
               onChange={this.changeTheSortByOptionValue}
@@ -286,7 +284,7 @@ class HomeRoute extends Component {
     return (
       <>
         {showNoRes ? (
-          <p>No Res</p>
+          <p>No Restaurants Found</p>
         ) : (
           <ul className={classes.RestaurantList}>
             {allRestaurants.map(each => (

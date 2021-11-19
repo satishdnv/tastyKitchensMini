@@ -27,15 +27,15 @@ class FoodItem extends Component {
   store in local storage */
 
   findTheCartItemInList = () => {
-    const cartList = JSON.parse(localStorage.getItem('cart_list')) || []
+    const cartData = JSON.parse(localStorage.getItem('cart_data')) || []
     const {foodItem} = this.props
-    const cartItem = cartList.filter(each => each.id === foodItem.id)
+    const cartItem = cartData.filter(each => each.id === foodItem.id)
     // console.log(cartItem)
     if (cartItem.length !== 0) {
       // console.log(cartItem)
       if (cartItem[0].quantity > 0) {
-        this.setState({quantity: cartItem[0].quantity, isFound: true})
-      } else if (cartItem[0].quantity <= 0) {
+        this.setState({quantity: cartItem[0].quantity})
+      } else if (cartItem[0].quantity < 1) {
         this.removeCartItem()
         this.setState({quantity: cartItem[0].quantity, isFound: false})
       }
@@ -43,26 +43,24 @@ class FoodItem extends Component {
   }
 
   incrementCartItemQuantity = () => {
-    const cartList = JSON.parse(localStorage.getItem('cart_list'))
+    const cartData = JSON.parse(localStorage.getItem('cart_data'))
     const {foodItem} = this.props
-    const updatedCartList = cartList.map(eachItem => {
+    const updatedCartData = cartData.map(eachItem => {
       if (eachItem.id === foodItem.id) {
         // console.log('found')
-        if (eachItem.quantity <= 9) {
-          const updatedQuantity = eachItem.quantity + 1
-          return {...eachItem, quantity: updatedQuantity}
-        }
+        const updatedQuantity = eachItem.quantity + 1
+        return {...eachItem, quantity: updatedQuantity}
       }
       return eachItem
     })
-    localStorage.setItem('cart_list', JSON.stringify(updatedCartList))
+    localStorage.setItem('cart_data', JSON.stringify(updatedCartData))
     this.findTheCartItemInList()
   }
 
   decrementCartItemQuantity = () => {
-    const cartList = JSON.parse(localStorage.getItem('cart_list'))
+    const cartData = JSON.parse(localStorage.getItem('cart_data'))
     const {foodItem} = this.props
-    const updatedCartList = cartList.map(eachItem => {
+    const updatedCartData = cartData.map(eachItem => {
       if (eachItem.id === foodItem.id) {
         // console.log('found')
         if (eachItem.quantity > 0) {
@@ -72,29 +70,30 @@ class FoodItem extends Component {
       }
       return eachItem
     })
-    localStorage.setItem('cart_list', JSON.stringify(updatedCartList))
+    localStorage.setItem('cart_data', JSON.stringify(updatedCartData))
     this.findTheCartItemInList()
   }
 
   removeCartItem = () => {
-    const cartList = JSON.parse(localStorage.getItem('cart_list'))
+    const cartData = JSON.parse(localStorage.getItem('cart_data'))
     const {foodItem} = this.props
-    const updatedCartList = cartList.filter(
+    const updatedCartData = cartData.filter(
       eachCartItem => eachCartItem.id !== foodItem.id,
     )
-    localStorage.setItem('cart_list', JSON.stringify(updatedCartList))
+    localStorage.setItem('cart_data', JSON.stringify(updatedCartData))
     this.findTheCartItemInList()
   }
 
   addCartItem = () => {
-    const cartList = JSON.parse(localStorage.getItem('cart_list')) || []
+    const cartData = JSON.parse(localStorage.getItem('cart_data')) || []
     const {foodItem} = this.props
     // console.log(foodItem)
     const cartItem = {...foodItem, quantity: 1}
     // console.log(cartItem)
-    cartList.push(cartItem)
-    localStorage.setItem('cart_list', JSON.stringify(cartList))
+    cartData.push(cartItem)
+    localStorage.setItem('cart_data', JSON.stringify(cartData))
     this.findTheCartItemInList()
+    this.setState({isFound: true})
   }
 
   render() {
@@ -102,7 +101,7 @@ class FoodItem extends Component {
     const {isFound, quantity} = this.state
     console.log(quantity)
     return (
-      <li className={itemClass.ListItem}>
+      <li className={itemClass.ListItem} testid="foodItem">
         <img
           src={foodItem.imageUrl}
           alt="food-item"
@@ -120,19 +119,29 @@ class FoodItem extends Component {
           </div>
           {isFound ? (
             <div className="each-item-counter-container" id={foodItem.id}>
-              <div className="minus-icon-container">
-                <HiOutlineMinusSm
-                  className="minus-icon"
-                  onClick={this.decrementCartItemQuantity}
-                />
-              </div>
-              <p className="count-value">{quantity}</p>
-              <div className="plus-icon-container">
-                <BsPlus
-                  className="plus-icon"
-                  onClick={this.incrementCartItemQuantity}
-                />
-              </div>
+              <button
+                type="button"
+                className="minus-icon-container"
+                testid="decrement-count"
+                onClick={this.decrementCartItemQuantity}
+              >
+                <HiOutlineMinusSm className="minus-icon" />
+              </button>
+              <button
+                type="button"
+                className="count-value"
+                testid="active-count"
+              >
+                {quantity}
+              </button>
+              <button
+                type="button"
+                className="plus-icon-container"
+                testid="increment-count"
+                onClick={this.incrementCartItemQuantity}
+              >
+                <BsPlus className="plus-icon" />
+              </button>
             </div>
           ) : (
             <button
@@ -140,7 +149,7 @@ class FoodItem extends Component {
               className={itemClass.AddButton}
               onClick={this.addCartItem}
             >
-              ADD
+              Add
             </button>
           )}
         </div>
