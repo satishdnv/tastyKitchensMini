@@ -34,7 +34,7 @@ class FoodItem extends Component {
     if (cartItem.length !== 0) {
       // console.log(cartItem)
       if (cartItem[0].quantity > 0) {
-        this.setState({quantity: cartItem[0].quantity})
+        this.setState({quantity: cartItem[0].quantity, isFound: true})
       } else if (cartItem[0].quantity < 1) {
         this.removeCartItem()
         this.setState({quantity: cartItem[0].quantity, isFound: false})
