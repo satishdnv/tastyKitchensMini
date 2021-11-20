@@ -32,7 +32,7 @@ class CartRoute extends Component {
   // increment the cart quantity
 
   incrementCartItemQuantity = id => {
-    const cartData = JSON.parse(localStorage.getItem('cart_data'))
+    const cartData = JSON.parse(localStorage.getItem('cartData'))
     const updatedCartData = cartData.map(eachItem => {
       if (eachItem.id === id) {
         console.log(eachItem.quantity)
@@ -41,14 +41,14 @@ class CartRoute extends Component {
       }
       return eachItem
     })
-    localStorage.setItem('cart_data', JSON.stringify(updatedCartData))
+    localStorage.setItem('cartData', JSON.stringify(updatedCartData))
     this.getTheCartData()
   }
 
   // decrement the cart quantity
 
   decrementCartItemQuantity = id => {
-    const cartData = JSON.parse(localStorage.getItem('cart_data'))
+    const cartData = JSON.parse(localStorage.getItem('cartData'))
     const updatedCartData = cartData.map(eachItem => {
       if (eachItem.id === id) {
         if (eachItem.quantity > 0) {
@@ -69,12 +69,12 @@ class CartRoute extends Component {
   // remove the item
 
   removeCartItem = updatedData => {
-    // const cartData = JSON.parse(localStorage.getItem('cart_data'))
+    // const cartData = JSON.parse(localStorage.getItem('cartData'))
     const updatedCartData = updatedData.filter(
       eachCartItem => eachCartItem.quantity > 0,
     )
     console.log(updatedCartData)
-    localStorage.setItem('cart_data', JSON.stringify(updatedCartData))
+    localStorage.setItem('cartData', JSON.stringify(updatedCartData))
     this.getTheCartData()
   }
 
@@ -83,7 +83,7 @@ class CartRoute extends Component {
   calculateTheTotalAmount = () => {
     const {cartData} = this.state
     // console.log(cartData)
-    const amountList = cartData.map(each => each.activeCount * each.cost)
+    const amountList = cartData.map(each => each.quantity * each.cost)
     // console.log(amountList)
     const totalAmount = amountList.reduce((a, b) => a + b)
     return totalAmount
@@ -92,7 +92,7 @@ class CartRoute extends Component {
   // get the cart data
 
   getTheCartData = () => {
-    const cartData = JSON.parse(localStorage.getItem('cart_data')) || []
+    const cartData = JSON.parse(localStorage.getItem('cartData')) || []
     if (cartData.length === 0) {
       // console.log(cartData.length)
       this.setState({
@@ -100,11 +100,11 @@ class CartRoute extends Component {
       })
     } else {
       const cartItems = cartData.map(each => ({
-        name: each.name,
+        cost: each.cost,
+        quantity: each.quantity,
         id: each.id,
         imageUrl: each.imageUrl,
-        cost: each.cost,
-        activeCount: each.quantity,
+        name: each.name,
       }))
       this.setState({
         cartStatus: cartStatusConstants.cartItemsFound,
@@ -124,7 +124,7 @@ class CartRoute extends Component {
 
   placeOrder = () => {
     this.setState({cartStatus: cartStatusConstants.paymentSuccess})
-    localStorage.clear('cart_data')
+    localStorage.clear('cartData')
   }
 
   // cart empty view
@@ -169,7 +169,7 @@ class CartRoute extends Component {
 
   cartItemsView = () => {
     const {cartData} = this.state
-    // const cartData = JSON.parse(localStorage.getItem('cart_data'))
+    // const cartData = JSON.parse(localStorage.getItem('cartData'))
     console.log(cartData)
     const totalAmount = this.calculateTheTotalAmount()
     return (

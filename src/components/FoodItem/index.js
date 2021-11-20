@@ -27,7 +27,7 @@ class FoodItem extends Component {
   store in local storage */
 
   findTheCartItemInList = () => {
-    const cartData = JSON.parse(localStorage.getItem('cart_data')) || []
+    const cartData = JSON.parse(localStorage.getItem('cartData')) || []
     const {foodItem} = this.props
     const cartItem = cartData.filter(each => each.id === foodItem.id)
     // console.log(cartItem)
@@ -43,7 +43,7 @@ class FoodItem extends Component {
   }
 
   incrementCartItemQuantity = () => {
-    const cartData = JSON.parse(localStorage.getItem('cart_data'))
+    const cartData = JSON.parse(localStorage.getItem('cartData'))
     const {foodItem} = this.props
     const updatedCartData = cartData.map(eachItem => {
       if (eachItem.id === foodItem.id) {
@@ -53,12 +53,12 @@ class FoodItem extends Component {
       }
       return eachItem
     })
-    localStorage.setItem('cart_data', JSON.stringify(updatedCartData))
+    localStorage.setItem('cartData', JSON.stringify(updatedCartData))
     this.findTheCartItemInList()
   }
 
   decrementCartItemQuantity = () => {
-    const cartData = JSON.parse(localStorage.getItem('cart_data'))
+    const cartData = JSON.parse(localStorage.getItem('cartData'))
     const {foodItem} = this.props
     const updatedCartData = cartData.map(eachItem => {
       if (eachItem.id === foodItem.id) {
@@ -70,28 +70,28 @@ class FoodItem extends Component {
       }
       return eachItem
     })
-    localStorage.setItem('cart_data', JSON.stringify(updatedCartData))
+    localStorage.setItem('cartData', JSON.stringify(updatedCartData))
     this.findTheCartItemInList()
   }
 
   removeCartItem = () => {
-    const cartData = JSON.parse(localStorage.getItem('cart_data'))
+    const cartData = JSON.parse(localStorage.getItem('cartData'))
     const {foodItem} = this.props
     const updatedCartData = cartData.filter(
       eachCartItem => eachCartItem.id !== foodItem.id,
     )
-    localStorage.setItem('cart_data', JSON.stringify(updatedCartData))
+    localStorage.setItem('cartData', JSON.stringify(updatedCartData))
     this.findTheCartItemInList()
   }
 
   addCartItem = () => {
-    const cartData = JSON.parse(localStorage.getItem('cart_data')) || []
+    const cartData = JSON.parse(localStorage.getItem('cartData')) || []
     const {foodItem} = this.props
     // console.log(foodItem)
     const cartItem = {...foodItem, quantity: 1}
     // console.log(cartItem)
     cartData.push(cartItem)
-    localStorage.setItem('cart_data', JSON.stringify(cartData))
+    localStorage.setItem('cartData', JSON.stringify(cartData))
     this.findTheCartItemInList()
     this.setState({isFound: true})
   }

@@ -41,7 +41,7 @@ class CartItem extends Component {
                 <HiOutlineMinusSm className="minus-icon" />
               </button>
               <p testid="item-quantity" className="count-value">
-                {eachCartItem.activeCount}
+                {eachCartItem.quantity}
               </p>
               <button
                 testid="increment-quantity"
