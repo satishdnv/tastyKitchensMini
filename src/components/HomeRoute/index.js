@@ -53,6 +53,7 @@ class HomeRoute extends Component {
     activePage: 1,
     allRestaurants: [],
     searchInput: '',
+    loadFooter: false,
   }
 
   // component did Mount method
@@ -156,6 +157,7 @@ class HomeRoute extends Component {
       this.setState({
         restaurantApiStatus: restaurantsApiStatusConstants.success,
         allRestaurants: convertedRestaurants,
+        loadFooter: true,
       })
     } else if (response.ok === false) {
       this.setState({
@@ -341,6 +343,7 @@ class HomeRoute extends Component {
   // rendering the home route in  render method
 
   render() {
+    const {loadFooter} = this.state
     return (
       <>
         <div className={classes.HomeContainer}>
@@ -351,7 +354,7 @@ class HomeRoute extends Component {
             {this.onRenderDisplayRestaurants()}
             <Counter pageChangeFunction={this.getActivePage} />
           </div>
-          <Footer />
+          {loadFooter && <Footer />}
         </div>
       </>
     )

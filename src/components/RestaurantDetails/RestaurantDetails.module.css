@@ -9,6 +9,7 @@ body {
   flex-direction: column;
   overflow-x: hidden;
   min-height: 100vh;
+  justify-content: center;
 }
 
 .Loader {
